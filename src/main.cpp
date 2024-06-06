@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <LedControl.h>
+#include "../aseprite/frames.h"
 
 // Pin connections to the MAX7219
 const int DIN_PIN = 12;
@@ -8,25 +9,6 @@ const int CLK_PIN = 11;
 
 // Initialize LedControl object
 LedControl lc = LedControl(DIN_PIN, CLK_PIN, CS_PIN, 1);
-
-// Define the frames of the animation
-byte frames[][8] = {
-    {B00000000,
-     B00111100,
-     B01111110,
-     B01111110,
-     B01111110,
-     B01111110,
-     B00111100,
-     B00000000},
-    {B00000000,
-     B00000000,
-     B00111100,
-     B01111110,
-     B01111110,
-     B00111100,
-     B00000000,
-     B00000000}};
 
 // Macro to calculate the number of frames
 #define NUM_FRAMES (sizeof(frames) / sizeof(frames[0]))
@@ -46,7 +28,7 @@ void displayFrame(int frame)
 void setup()
 {
   lc.shutdown(0, false); // Wake up displays
-  lc.setIntensity(0, 8); // Set brightness level (0 is min, 15 is max)
+  lc.setIntensity(0, 1); // Set brightness level (0 is min, 15 is max)
   lc.clearDisplay(0);    // Clear display register
 }
 

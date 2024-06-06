@@ -1,0 +1,3 @@
+- Convert sprites animation
+- Build into arduino?
+- Add contrast with luminosity
