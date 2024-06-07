@@ -19,34 +19,29 @@ local function toBinaryString(n)
 end
 
 local outputFile = io.open(spriteDir .. "frames.txt", "w")
-
-outputFile:write("byte frames[][8] = {\n")
+local binaryStrings = {}
 
 for frameIndex, frame in ipairs(sprite.frames) do
-  outputFile:write("  {\n")
   local cel = sprite.layers[1]:cel(frame)
   if cel then
-    for y = 1, 8 do                                                                 -- Modification: start y from 1 to 8
+    for y = 0, 7 do   -- Pixel rows
       local byte = 0
-      for x = 1, 8 do                                                               -- Modification: start x from 1 to 8
-        if x <= cel.image.width and y <= cel.image.height then                      -- Adjust bounds check
-          local pixelValue = app.pixelColor.rgbaR(cel.image:getPixel(x - 1, y - 1)) -- Modification: adjust pixel coordinates
-          if pixelValue > 0 then
-            byte = byte | (1 << (8 - x))                                            -- Modification: shift the bit to the correct position
-          end
+      for x = 0, 7 do -- Pixel columns
+        local pixelValue = app.pixelColor.rgbaR(cel.image:getPixel(x, y))
+        if pixelValue > 0 then
+          byte = byte | (1 << (7 - x))
         end
       end
-      outputFile:write(string.format("    B%s,\n", toBinaryString(byte)))
+      table.insert(binaryStrings, toBinaryString(byte))
     end
   else
     -- If there is no cel for the frame, write an empty frame
-    for y = 1, 8 do
-      outputFile:write("    B00000000,\n")
+    for y = 0, 7 do
+      table.insert(binaryStrings, "00000000")
     end
   end
-  outputFile:write("  },\n")
 end
 
-outputFile:write("};\n")
+outputFile:write(table.concat(binaryStrings, " "))
 outputFile:close()
 app.alert("Frames exported successfully to " .. spriteDir .. "frames.txt")

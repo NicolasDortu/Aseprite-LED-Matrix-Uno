@@ -1,3 +1,2 @@
-- Convert sprites animation
-- Build into arduino?
+- Use binary, faster solution
 - Add contrast with luminosity
