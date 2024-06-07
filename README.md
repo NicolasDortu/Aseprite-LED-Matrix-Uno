@@ -15,6 +15,7 @@
 
 # How to use
 <ul>
+  <li>Use Canva.aseprite and don't move it to another folder (it uses the path of this file to generate frames.txt)</li>
   <li>In Aseprite, drop the file ./aseprite/script/ByteConverter.lua in the Aseprite script folder</li>
   <li>Upload main.cpp to the Arduino Uno</li>
   <li>In Aseprite, run the script ByteConverter to launch the FramesAPI.exe and display the sprites to the LED matrix</li>
