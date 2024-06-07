@@ -44,4 +44,11 @@ end
 
 outputFile:write(table.concat(binaryStrings, " "))
 outputFile:close()
-app.alert("Frames exported successfully to " .. spriteDir .. "frames.txt")
+
+-- Start FramesAPI.exe after generating frames.txt
+local processPath = spriteDir .. "FramesAPI.exe"
+-- Open a new command prompt and run FramesAPI.exe in a separate process
+os.execute('start cmd /c "cd /d ' .. spriteDir .. ' && ' .. processPath .. '"')
+
+
+--app.alert("Frames exported successfully to " .. spriteDir .. "frames.txt")

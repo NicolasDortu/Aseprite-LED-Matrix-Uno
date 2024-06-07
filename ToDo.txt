@@ -1,2 +1,3 @@
 - Use binary, faster solution
 - Add contrast with luminosity
+- Fix Bug to generate frames without border
